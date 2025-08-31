@@ -1,0 +1,16 @@
+---
+- name: Install netstat (net-tools package)
+  hosts: myservers
+  become: true
+  tasks:
+    - name: Install net-tools on Debian/Ubuntu
+      apt:
+        name: net-tools
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install net-tools on RHEL/CentOS/Rocky
+      yum:
+        name: net-tools
+        state: present
+      when: ansible_os_family == "RedHat"
